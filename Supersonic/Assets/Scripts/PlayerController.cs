@@ -6,6 +6,8 @@ public class PlayerController : MonoBehaviour {
 
 	public float playerSpeed;
 	public float powerUpSpeed;
+
+	[HideInInspector]
 	public float maxSpeed;
 
 	// Use this for initialization

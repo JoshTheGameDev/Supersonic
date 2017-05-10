@@ -5,13 +5,19 @@ using UnityEngine.UI;
 
 public class SpeedCounter : MonoBehaviour {
 
+	private GameObject player;
+	private Text text;
+
+
 	// Use this for initialization
 	void Start () {
-		
+		text = this.gameObject.GetComponent<Text> ();
+		player = GameObject.FindGameObjectWithTag ("pSpeed");
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		//call speed reference from PlayerController Script
+		text = player.gameObject.GetComponent<PlayerController> ().playerSpeed;
 	}
 }
