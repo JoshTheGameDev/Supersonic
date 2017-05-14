@@ -21,8 +21,7 @@ public class PlayerController : MonoBehaviour {
 			gameObject.GetComponent<Rigidbody> ().AddForce (transform.right *
 				-playerSpeed);
 
-		if (maxSpeed == 117)
-			;
+		//if (maxSpeed == 117);
 	//gameObject.GetComponent<Rigidbody> ().AddForce (playerSpeed - playerSpeed);
 	}
 
