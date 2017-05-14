@@ -14,7 +14,6 @@ public class SpeedCounter : MonoBehaviour {
 	void Start () {
 		//speedText = this.gameObject.GetComponent<PlayerController>
 		//player = GameObject.FindGameObjectWithTag ("pSpeed");
-		GameObject speed = new GameObject();
 	}
 	
 	// Update is called once per frame
