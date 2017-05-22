@@ -17,7 +17,7 @@ public class PlayerControllerv2 : MonoBehaviour {
 	public float maxSpeed = 100f;
 	public float boostSpeed = 2;
 	public float magnetSpeed = 2;
-	public GameObject track;
+	public GameObject anchor;
 
 	public Vector3 previousRotationDirection = Vector3.forward;
 
@@ -33,8 +33,8 @@ public class PlayerControllerv2 : MonoBehaviour {
 	public bool isUsingKeyboard;
 	public bool isMagnetOn;
 
-	public float horizontalSpeed = 2.0F;
-	public float verticalSpeed = 2.0F;
+	public float controllerHorizontalSpeed = 2.0F;
+	//public float controllerVerticalSpeed = 2.0F;
 
 	public string speedCount;
 	public GameObject SpeedTextObject;
@@ -49,7 +49,7 @@ public class PlayerControllerv2 : MonoBehaviour {
 
 	void Update(){
 		
-		//Speedo ();
+		Speedo ();
 
 		RotatePlayer ();
 
@@ -129,7 +129,7 @@ public class PlayerControllerv2 : MonoBehaviour {
 
 		//magnet to track
 		if (isMagnetOn == true){
-		transform.position = Vector3.MoveTowards (transform.position, track.transform.position, Time.deltaTime * magnetSpeed);
+		transform.position = Vector3.MoveTowards (transform.position, anchor.transform.position *2.5f, Time.deltaTime * magnetSpeed);
 		}
 	}
 			
@@ -151,7 +151,7 @@ public class PlayerControllerv2 : MonoBehaviour {
 		}
 		if (isUsingKeyboard == true) {
 			
-			float h = horizontalSpeed * Input.GetAxis("Mouse X");
+			float h = controllerHorizontalSpeed * Input.GetAxis("Mouse X");
 			//float v = verticalSpeed * Input.GetAxis("Mouse Y");
 			transform.Rotate(0, h, 0);
 
@@ -162,20 +162,21 @@ public class PlayerControllerv2 : MonoBehaviour {
 	}
 
 
-//	private void Speedo(string MyCount){
-//		var kph = rigidBody.velocity.magnitude * 3.6;
-//		//var kphDisplay : GUIText;
-//		//kphDisplay.text = kph + " KPH";
-//		Text text = SpeedTextObject.GetComponent<Text> ();
-//		if (MyCount == "X")
-//		{
-//			speedCount="";
-//			MyCount="";
-//		}
-//
-//		speedCount += MyCount;
-//		text.text = speedCount;
-//	}
+	private void Speedo(){ //try this if first can't work. 			private void Speedo(string MyCount){
+		var kph = rigidBody.velocity.magnitude * 3.6;
+		//var kphDisplay : GUIText;
+		//kphDisplay.text = kph + " KPH";
+
+		//Text text = SpeedTextObject.GetComponent<Text> ();
+		//if (MyCount == "X")
+		//{
+		//	speedCount="";
+		//	MyCount="";
+		//}
+		//
+		//speedCount += MyCount;
+		//text.text = speedCount;
+	}
 
 
 } 
