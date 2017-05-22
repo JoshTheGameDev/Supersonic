@@ -10,7 +10,7 @@ public class Anchor : MonoBehaviour {
 
 	public float magnetSpeed = 2;
 
-	private float yValue = track.transform.localPosition.y;
+	//private float yValue = track.transform.localPosition.y;
 
 	// Update is called once per frame
 	void FixedUpdate () {
