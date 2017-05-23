@@ -9,13 +9,6 @@ public class SpeedLines : MonoBehaviour {
 	public float speed;
 	Vector2 offset;
 
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
 	void Update () {
 
 

@@ -15,8 +15,8 @@ public class PlayerControllerv2 : MonoBehaviour {
 	public float movementSpeed = 60f;
 	public float minSpeed = 10f;
 	public float maxSpeed = 100f;
-	public float boostSpeed = 2;
-	public float magnetSpeed = 2;
+	public float boostSpeed = 2f;
+	public float magnetSpeed = 2f;
 	public GameObject anchor;
 
 	public Vector3 previousRotationDirection = Vector3.forward;
@@ -25,8 +25,6 @@ public class PlayerControllerv2 : MonoBehaviour {
 	public KeyCode backwardsKey = KeyCode.S;
 	public KeyCode moveLeftKey = KeyCode.A;
 	public KeyCode moveRightKey = KeyCode.D;
-	//public KeyCode rotateTurretLeftKey = KeyCode.E;
-	//public KeyCode rotateTurretRightKey = KeyCode.Q;
 	public KeyCode boostKey = KeyCode.Space;
 
 	public bool isUsingController;
@@ -34,12 +32,13 @@ public class PlayerControllerv2 : MonoBehaviour {
 	public bool isMagnetOn;
 
 	public float controllerHorizontalSpeed = 2.0F;
-	//public float controllerVerticalSpeed = 2.0F;
 
-	public string speedCount;
-	public GameObject SpeedTextObject;
+	public Text kphDisplay; 
 
-	private Text text;
+
+	//===============================================================================================================================================================================================================================
+
+
 
 	// Use this for initialization
 	void Start () {
@@ -55,24 +54,21 @@ public class PlayerControllerv2 : MonoBehaviour {
 
 	}
 
-	// Update is called once per frame
 	void FixedUpdate () {
 		MovePlayer ();
 	}
 
+
+
 	private void MovePlayer(){
-		//--------------------------------------------------------------Controller-------------------------------------------------------------------------
 
-		//===================-----------Speedometer-------------================
-
-
-		//======================================================================
+		//------------------------------------------------------------------------------Controller------------------------------------------------------------------------------------------------------
 
 		if (isUsingController == true) {
 
 			float axisX = XCI.GetAxis (XboxAxis.LeftStickX, controller);
 			float axisZ = XCI.GetAxis (XboxAxis.LeftStickY, controller);
-			Vector3 movement = new Vector3 (axisX, 0, axisZ);
+			Vector3 movement = new Vector3 (axisX, 0f, axisZ);
 
 			rigidBody.AddForce (movement * movementSpeed);
 
@@ -82,7 +78,7 @@ public class PlayerControllerv2 : MonoBehaviour {
 			}
 
 
-			//Speed Boost code
+			//------------------------------------------------------------------------Speed Boost code----------------------------------------------------------------------------------------------------
 			if (XCI.GetAxis (XboxAxis.RightTrigger) >= 0.5f) {
 				if (XCI.GetAxis (XboxAxis.LeftStickY) >= 0.5f) {
 					
@@ -91,18 +87,18 @@ public class PlayerControllerv2 : MonoBehaviour {
 			
 			
 			}
-			//Ensure the player can't go faster than the max speed
+			//-------------------------------------------------------Ensure the player can't go faster than the max speed--------------------------------------------------------------------------------
 			
-			if (rigidBody.velocity.magnitude > maxSpeed) {
-				rigidBody.velocity = rigidBody.velocity.normalized * maxSpeed;
-			}
-			
-			if (movementSpeed > maxSpeed) {
-				rigidBody.velocity = rigidBody.velocity.normalized * maxSpeed;
-			}
+		//	if (rigidBody.velocity.magnitude > maxSpeed) {
+		//		rigidBody.velocity = rigidBody.velocity.normalized * maxSpeed;
+		//	}
+		//	
+		//	if (movementSpeed > maxSpeed) {
+		//		rigidBody.velocity = rigidBody.velocity.normalized * maxSpeed;
+		//	}
 
 		}
-		//-----------------------------------------------------Keyboard-----------------------------------------------------
+		//--------------------------------------------------------------------------------Keyboard-----------------------------------------------------------------------------------------------------------
 		if (isUsingKeyboard == true) {
 			
 			if (Input.GetKey (KeyCode.W)) {
@@ -124,25 +120,35 @@ public class PlayerControllerv2 : MonoBehaviour {
 
 
 			}
+
+			if (rigidBody.velocity.magnitude > maxSpeed) {
+         	rigidBody.velocity = rigidBody.velocity.normalized * maxSpeed;
+         }
+
+			if (movementSpeed > maxSpeed) {
+				rigidBody.velocity = rigidBody.velocity.normalized * maxSpeed;
+			}
+
 		}
 
 
-		//magnet to track
+		//-----------------------------------------magnet to track------------------------------------------------------------------------------------------
 		if (isMagnetOn == true){
 		transform.position = Vector3.MoveTowards (transform.position, anchor.transform.position *2.5f, Time.deltaTime * magnetSpeed);
 		}
 	}
-			
+		//=====================================================================================================================================================
+
 	private void RotatePlayer(){
 		if (isUsingController == true) {
 			float rotateAxisX = XCI.GetAxis (XboxAxis.RightStickX, controller);
 	
 			float rotateAxisZ = XCI.GetAxis (XboxAxis.RightStickY, controller);
 	
-			Vector3 directionVector = new Vector3 (rotateAxisX, 0, rotateAxisZ);
+			Vector3 directionVector = new Vector3 (rotateAxisX, 0f, rotateAxisZ);
 	
 			//Checks to see if the right thumbstick is not being used, if not, keep shooting in the same direction that it was previously
-			if (directionVector.magnitude < 0.01f) {
+			if (directionVector.magnitude < 0.001f) {
 				directionVector = previousRotationDirection;
 			}
 			directionVector = directionVector.normalized;
@@ -152,30 +158,28 @@ public class PlayerControllerv2 : MonoBehaviour {
 		if (isUsingKeyboard == true) {
 			
 			float h = controllerHorizontalSpeed * Input.GetAxis("Mouse X");
-			//float v = verticalSpeed * Input.GetAxis("Mouse Y");
-			transform.Rotate(0, h, 0);
+			transform.Rotate(0f, h, 0f);
 
 			float rotateMouseAxisX = Input.mousePosition.x;
 			float rotateMouseAxisZ = Input.mousePosition.z;
-			Vector3 directionVector = new Vector3 (rotateMouseAxisX, 0, rotateMouseAxisZ);
+			Vector3 directionVector = new Vector3 (rotateMouseAxisX, 0f, rotateMouseAxisZ);
 		}
 	}
 
 
-	private void Speedo(){ //try this if first can't work. 			private void Speedo(string MyCount){
-		var kph = rigidBody.velocity.magnitude * 3.6;
-		//var kphDisplay : GUIText;
-		//kphDisplay.text = kph + " KPH";
 
-		//Text text = SpeedTextObject.GetComponent<Text> ();
-		//if (MyCount == "X")
-		//{
-		//	speedCount="";
-		//	MyCount="";
-		//}
-		//
-		//speedCount += MyCount;
-		//text.text = speedCount;
+
+
+	//========================================================-----------Speedometer-------------=========================================================================
+	private void Speedo(){ 																		
+		
+		float kph = (float)(rigidBody.velocity.magnitude * 3.6f);		
+
+		float newkph = Mathf.Round (kph);
+
+		kphDisplay.text = newkph + " KPH";	
+
+
 	}
 
 
