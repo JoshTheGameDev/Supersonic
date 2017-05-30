@@ -8,8 +8,8 @@ using UnityEngine.UI;
 
 public class PlayerControllerv2 : MonoBehaviour {
 	
-
 	private Rigidbody rigidBody;
+
 	public XboxController controller;
 
 	public float movementSpeed = 60f;
@@ -33,7 +33,6 @@ public class PlayerControllerv2 : MonoBehaviour {
 
 	public float controllerHorizontalSpeed = 2.0F;
 
-	public Text kphDisplay; 
 
 
 	//===============================================================================================================================================================================================================================
@@ -44,11 +43,10 @@ public class PlayerControllerv2 : MonoBehaviour {
 	void Start () {
 		
 		rigidBody = GetComponent<Rigidbody> ();
+
 	}
 
 	void Update(){
-		
-		Speedo ();
 
 		RotatePlayer ();
 
@@ -166,24 +164,4 @@ public class PlayerControllerv2 : MonoBehaviour {
 			Vector3 directionVector = new Vector3 (rotateMouseAxisX, 0f, rotateMouseAxisZ);
 		}
 	}
-
-
-
-
-
-	//========================================================-----------Speedometer-------------=========================================================================
-	private void Speedo(){ 																		
-		
-		float kph = (float)(rigidBody.velocity.magnitude * 3.6f);		
-
-		float newkph = Mathf.Round (kph);
-
-		kphDisplay.text = newkph + " KPH";	
-
-
-	}
-
-
-} 
-
-
+}
