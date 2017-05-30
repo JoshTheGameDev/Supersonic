@@ -89,15 +89,16 @@ public class PlayerControllerv2 : MonoBehaviour {
 			}
 			//-------------------------------------------------------Ensure the player can't go faster than the max speed--------------------------------------------------------------------------------
 			
-		//	if (rigidBody.velocity.magnitude > maxSpeed) {
-		//		rigidBody.velocity = rigidBody.velocity.normalized * maxSpeed;
-		//	}
-		//	
-		//	if (movementSpeed > maxSpeed) {
-		//		rigidBody.velocity = rigidBody.velocity.normalized * maxSpeed;
-		//	}
+			if (rigidBody.velocity.magnitude > maxSpeed) {
+				rigidBody.velocity = rigidBody.velocity.normalized * maxSpeed;
+			}
+			
+			if (movementSpeed > maxSpeed) {
+				rigidBody.velocity = rigidBody.velocity.normalized * maxSpeed;
+			}
 
 		}
+
 		//--------------------------------------------------------------------------------Keyboard-----------------------------------------------------------------------------------------------------------
 		if (isUsingKeyboard == true) {
 			
