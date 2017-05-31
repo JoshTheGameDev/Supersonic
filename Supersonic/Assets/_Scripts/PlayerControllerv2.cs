@@ -4,7 +4,7 @@ using UnityEngine;
 using XboxCtrlrInput;
 using UnityEngine.UI;
 
- 
+ //REMAKE SCRIPT, ADD WHEEL COLLIDERS & LESSONS LEARNED FROM CLASS
 
 public class PlayerControllerv2 : MonoBehaviour {
 	
@@ -17,6 +17,7 @@ public class PlayerControllerv2 : MonoBehaviour {
 	public float maxSpeed = 100f;
 	public float boostSpeed = 2f;
 	public float magnetSpeed = 2f;
+	[HideInInspector] // No current use, hide for cleanup
 	public GameObject anchor;
 
 	public Vector3 previousRotationDirection = Vector3.forward;
@@ -32,7 +33,7 @@ public class PlayerControllerv2 : MonoBehaviour {
 	public bool isMagnetOn;
 
 	public float controllerHorizontalSpeed = 2.0F;
-
+	public float sensitivity = 0.001f;
 
 
 	//===============================================================================================================================================================================================================================
@@ -98,6 +99,7 @@ public class PlayerControllerv2 : MonoBehaviour {
 		}
 
 		//--------------------------------------------------------------------------------Keyboard-----------------------------------------------------------------------------------------------------------
+		//Need to fix acceleration, deceleration. Look into keeping both movement methods for both control options.
 		if (isUsingKeyboard == true) {
 			
 			if (Input.GetKey (KeyCode.W)) {
@@ -131,12 +133,12 @@ public class PlayerControllerv2 : MonoBehaviour {
 		}
 
 
-		//-----------------------------------------magnet to track------------------------------------------------------------------------------------------
+		//----------------------------------------- Magnet to track - Currently borked -----------------------------------------------------------------------------------------
 		if (isMagnetOn == true){
 		transform.position = Vector3.MoveTowards (transform.position, anchor.transform.position *2.5f, Time.deltaTime * magnetSpeed);
 		}
 	}
-		//=====================================================================================================================================================
+		//============================================================Rotate Player=============================================================================================
 
 	private void RotatePlayer(){
 		if (isUsingController == true) {
@@ -146,14 +148,16 @@ public class PlayerControllerv2 : MonoBehaviour {
 	
 			Vector3 directionVector = new Vector3 (rotateAxisX, 0f, rotateAxisZ);
 	
-			//Checks to see if the right thumbstick is not being used, if not, keep shooting in the same direction that it was previously
-			if (directionVector.magnitude < 0.001f) {
+			//Checks to see if the right thumbstick is not being used, if its not, then keep facing the same direction that it was previously
+
+			if (directionVector.magnitude < sensitivity) {
 				directionVector = previousRotationDirection;
 			}
 			directionVector = directionVector.normalized;
 			previousRotationDirection = directionVector;
 			transform.rotation = Quaternion.LookRotation (directionVector);
 		}
+
 		if (isUsingKeyboard == true) {
 			
 			float h = controllerHorizontalSpeed * Input.GetAxis("Mouse X");

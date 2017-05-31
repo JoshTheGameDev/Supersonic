@@ -23,10 +23,9 @@ public class GameManager : MonoBehaviour {
 		
 		Speedo ();
 
-		//pSpeed.isMagnetOn();
-
 	}
-	
+
+	//------------------------------------------------------ Speedometer-----------------------------------------------------------
 	private void Speedo(){ 
 	
 		float p1Kph = (float)(p1Rigidbody.velocity.magnitude * 3.6f);
