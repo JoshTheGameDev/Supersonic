@@ -1,17 +1,37 @@
 fileFormatVersion: 2
-guid: 81ff8081676add34caeb9bab893007d1
-timeCreated: 1494682969
-licenseType: Free
+guid: 25f9bc455c15d7e479fde9fe394e8e00
+timeCreated: 1465464284
+licenseType: Store
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
+    100002: TireBL
+    100004: TireBR
+    100006: TireFL
+    100008: TireFR
     400000: //RootNode
+    400002: TireBL
+    400004: TireBR
+    400006: TireFL
+    400008: TireFR
     2300000: //RootNode
+    2300002: TireBL
+    2300004: TireBR
+    2300006: TireFL
+    2300008: TireFR
     3300000: //RootNode
-    4300000: Racecraft
+    3300002: TireBL
+    3300004: TireBR
+    3300006: TireFL
+    3300008: TireFR
+    4300000: CarD
+    4300002: TireFL
+    4300004: TireBL
+    4300006: TireBR
+    4300008: TireFR
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
@@ -50,9 +70,9 @@ ModelImporter:
     secondaryUVPackMargin: 4
     useFileScale: 1
   tangentSpace:
-    normalSmoothAngle: 60
+    normalSmoothAngle: 0
     normalImportMode: 0
-    tangentImportMode: 3
+    tangentImportMode: 0
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
@@ -70,7 +90,7 @@ ModelImporter:
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0
-    skeletonHasParents: 1
+    skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 0
   humanoidOversampling: 1

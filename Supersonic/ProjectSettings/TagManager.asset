@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - pSpeed
+  - Player1
+  - Player2
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - P1SpeedLines
   - P2SpeedLines
   - Collider
-  - 
+  - Wheels
   - 
   - 
   - 

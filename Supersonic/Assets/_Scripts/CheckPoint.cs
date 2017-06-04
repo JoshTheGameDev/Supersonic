@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CheckPoint : MonoBehaviour {
+public class Checkpoint : MonoBehaviour {
+
+	public int checkpointNumber;
 
 	// Use this for initialization
 	void Start () {
-		
+
 	}
-	
+
 	void  OnTriggerEnter ( Collider other  )
 	{
 		//Is it the Player who enters the collider?
