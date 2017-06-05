@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -11,11 +12,13 @@ public class GameManager : MonoBehaviour {
 	public Rigidbody p1Rigidbody;
 	public Rigidbody p2Rigidbody;
 
+
 	// Use this for initialization
 	void Start () {
-		
+
 		p1Rigidbody = p1Rigidbody.GetComponent<Rigidbody> ();
 		p2Rigidbody = p2Rigidbody.GetComponent<Rigidbody> ();
+	
 	}
 	
 	// Update is called once per frame
@@ -23,6 +26,10 @@ public class GameManager : MonoBehaviour {
 		
 		Speedo ();
 
+	}
+
+	void FixedUpdate (){
+		Reset ();
 	}
 
 	//------------------------------------------------------ Speedometer-----------------------------------------------------------
@@ -37,4 +44,11 @@ public class GameManager : MonoBehaviour {
 		p1KphDisplay.text = newP1Kph + " KPH";
 		p2KphDisplay.text = newP2Kph + " KPH";
 	}
+
+	private void Reset(){
+		if (Input.GetKeyDown (KeyCode.R)) {
+			SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex);
+		}
+	}
+
 }

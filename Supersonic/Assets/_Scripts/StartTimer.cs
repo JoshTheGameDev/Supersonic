@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class StartTimer : MonoBehaviour {
 
 	public Text countdownText;
@@ -64,7 +65,6 @@ public class StartTimer : MonoBehaviour {
 			}
 
 			if (roundStarted == true) {
-				countdown = false;
 				Destroy (countdownText, 0.5f);
 				return;
 			}
@@ -78,5 +78,7 @@ public class StartTimer : MonoBehaviour {
 		timeElapsed = roundTimer -= Time.deltaTime;
 
 	}
+
+
 
 }

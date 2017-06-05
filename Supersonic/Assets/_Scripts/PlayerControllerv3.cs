@@ -12,13 +12,11 @@ public class PlayerControllerv3 : MonoBehaviour {
 
 	public XboxController controller;
 
-	public float movementSpeed = 60f;
+	//public float movementSpeed = 60f;
 	public float minSpeed = 10f;
 	public float maxSpeed = 100f;
 	public float boostSpeed = 2f;
 	//public float magnetSpeed = 2f;
-	//[HideInInspector] // No current use, hide for cleanup
-	//public GameObject anchor;
 
 	//public Vector3 previousRotationDirection = Vector3.forward;
 
@@ -28,23 +26,22 @@ public class PlayerControllerv3 : MonoBehaviour {
 	public KeyCode moveRightKey = KeyCode.D;
 	public KeyCode boostKey = KeyCode.Space;
 
-	//public bool isUsingController;
-	//public bool isUsingKeyboard;
-	//public bool isMagnetOn;
+	public bool isUsingController = false;
+	public bool isUsingKeyboard = false;
 
 	//public float controllerHorizontalSpeed = 2.0F;
 	//public float sensitivity = 0.001f;
 
 
-	//======================================================= Things From Racing Sim tut =======================================================================================================================
+	//================================================================ Things From Racing Sim tut =======================================================================================================================
 
 	public GameObject startTimer;
 
 	public List <WheelCollider> wheelList;
-	public float enginePower = 150.0f;
+	public float enginePower = 250.0f;
 
 	public float steer = 0.0f;
-	public float maxSteer = 25.0f;
+	public float maxSteer = 45.0f;
 
 	public Vector3 centerOfMass = new Vector3(0, -0.5f, 0.3f);
 
@@ -66,6 +63,7 @@ public class PlayerControllerv3 : MonoBehaviour {
 
 	void Update(){
 
+		ControllerCheck ();
 		MakeCarGo ();
 		RotatePlayer ();
 
@@ -79,6 +77,10 @@ public class PlayerControllerv3 : MonoBehaviour {
 			float rotateMouseAxisX = Input.mousePosition.x;
 			float rotateMouseAxisZ = Input.mousePosition.z;
 			Vector3 directionVector = new Vector3 (rotateMouseAxisX, 0f, rotateMouseAxisZ);
+
+		if (isUsingController == true) {
+			
+		}
 
 	}
 
@@ -124,8 +126,29 @@ public class PlayerControllerv3 : MonoBehaviour {
 		if (checkpointNumber == currentCheckpoint + 1) {
 			currentCheckpoint = checkpointNumber;
 		} else {
-			Debug.Log ("Wrong Checkpoint for " + transform.name);
+			Debug.Log ("Wrong Checkpoint for " + transform.name);  
 		}
+	}
+
+	// check for controller, if controller is being used, set bool "isUsingController" to true
+	private void ControllerCheck(){
+
+		if (XCI.IsPluggedIn (1) == true) {
+			isUsingController = true;
+			isUsingKeyboard = false;
+			 
+		} 
+
+		if (XCI.IsPluggedIn (2) == true) {
+			isUsingController = true;
+			isUsingKeyboard = false;
+
+		} 
+
+		if (XCI.IsPluggedIn (1) == false && XCI.IsPluggedIn (2) == false) {
+			isUsingKeyboard = true;
+		}
+
 	}
 
 }

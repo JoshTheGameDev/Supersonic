@@ -10,7 +10,7 @@ public class Track : MonoBehaviour {
 	void Start () {
 		
 		for (int i = 0; i < CheckPointList.Count; i++) {
-			CheckPointList [i].checkpointNumber = i + 1;
+			CheckPointList [i].checkpointNumber = i +1;
 		}
 	}
 	
