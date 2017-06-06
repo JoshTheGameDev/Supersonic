@@ -54,7 +54,7 @@ public class PlayerControllerv3 : MonoBehaviour {
 
 
 
-	// Use this for initialization
+	// Use this for initialization ===== Keep to functions unless needed. I like clean.
 	void Start () {
 
 		GetRBComponents ();
@@ -130,10 +130,10 @@ public class PlayerControllerv3 : MonoBehaviour {
 		}
 	}
 
-	// check for controller, if controller is being used, set bool "isUsingController" to true
+	//=================================================== check for controller, if controller is being used, set bool "isUsingController" to true =============================================================================================================
 	private void ControllerCheck(){
-
-		if (XCI.IsPluggedIn (1) == true) {
+												// 0 = All controllers, 1 = First, 2 = Second, ect.
+		if (XCI.IsPluggedIn (1) == true) {		// Need to fix.
 			isUsingController = true;
 			isUsingKeyboard = false;
 			 
