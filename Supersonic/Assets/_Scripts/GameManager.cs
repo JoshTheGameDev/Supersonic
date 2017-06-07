@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using XboxCtrlrInput;
 
 public class GameManager : MonoBehaviour {
 
@@ -12,12 +13,17 @@ public class GameManager : MonoBehaviour {
 	public Rigidbody p1Rigidbody;
 	public Rigidbody p2Rigidbody;
 
+	private int lapCount;
+
+	public float maxSpeed = 100f;
 
 	// Use this for initialization
 	void Start () {
 
 		p1Rigidbody = p1Rigidbody.GetComponent<Rigidbody> ();
 		p2Rigidbody = p2Rigidbody.GetComponent<Rigidbody> ();
+
+		lapCount = p1Rigidbody.GetComponent<PlayerControllerv3> ().currentCheckpoint;
 	
 	}
 	
@@ -30,6 +36,8 @@ public class GameManager : MonoBehaviour {
 
 	void FixedUpdate (){
 		Reset ();
+		Quit ();
+		LapCounter ();
 	}
 
 	//------------------------------------------------------ Speedometer-----------------------------------------------------------
@@ -51,4 +59,12 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
+	private void Quit(){
+		if (Input.GetKeyDown(KeyCode.Escape) || XCI.GetButtonDown(XboxButton.Back))
+			Application.Quit();
+	}
+
+	private void LapCounter(){
+		
+	}
 }

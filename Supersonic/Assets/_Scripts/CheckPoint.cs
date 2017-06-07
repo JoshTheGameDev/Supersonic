@@ -10,7 +10,7 @@ public class Checkpoint : MonoBehaviour {
 	void OnTriggerEnter(Collider other){
 		if (other.tag == "Player") {
 			other.GetComponent<PlayerControllerv3> ().HitCheckPoint (checkpointNumber);
-			//something goes here
+
 		}
 	}
 

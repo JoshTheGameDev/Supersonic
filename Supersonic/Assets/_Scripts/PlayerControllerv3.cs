@@ -42,6 +42,7 @@ public class PlayerControllerv3 : MonoBehaviour {
 
 	public float steer = 0.0f;
 	public float maxSteer = 45.0f;
+	public float playerSpeed;
 
 	public Vector3 centerOfMass = new Vector3(0, -0.5f, 0.3f);
 
@@ -58,7 +59,7 @@ public class PlayerControllerv3 : MonoBehaviour {
 	void Start () {
 
 		GetRBComponents ();
-
+		playerSpeed = GetComponent <Rigidbody> ().velocity.magnitude * 3.6f;
 	}
 
 	void Update(){
@@ -78,9 +79,6 @@ public class PlayerControllerv3 : MonoBehaviour {
 			float rotateMouseAxisZ = Input.mousePosition.z;
 			Vector3 directionVector = new Vector3 (rotateMouseAxisX, 0f, rotateMouseAxisZ);
 
-		if (isUsingController == true) {
-			
-		}
 
 	}
 
@@ -98,15 +96,20 @@ public class PlayerControllerv3 : MonoBehaviour {
 		{
 			
 			for (int i = 0; i < wheelList.Count; i++) {
-			wheelList [i].motorTorque = enginePower * Time.deltaTime * 250.0f * Input.GetAxis ("Vertical");
+				wheelList [i].motorTorque = enginePower * Time.deltaTime * 250.0f * XCI.GetAxis(XboxAxis.LeftStickY,controller);
+
+				//Input.GetAxis ("Vertical")
 			}
 				
 			wheelList [0].steerAngle = Input.GetAxis ("Horizontal") * maxSteer;
 			wheelList [1].steerAngle = Input.GetAxis ("Horizontal") * maxSteer;
 
+			if ( playerSpeed >= maxSpeed) {
+				playerSpeed = maxSpeed;
+			}
 
 			//===================================Cycle through Cameras========================================
-			if (Input.GetKeyDown (KeyCode.Q)) {
+			if (Input.GetKeyDown (KeyCode.Q) || XCI.GetButtonDown(XboxButton.LeftBumper)) {
 				cameraPointer++;
 				if (cameraPointer + 1 > cameraList.Count) {
 					cameraPointer = 0;
@@ -132,11 +135,10 @@ public class PlayerControllerv3 : MonoBehaviour {
 
 	//=================================================== check for controller, if controller is being used, set bool "isUsingController" to true =============================================================================================================
 	private void ControllerCheck(){
-												// 0 = All controllers, 1 = First, 2 = Second, ect.
-		if (XCI.IsPluggedIn (1) == true) {		// Need to fix.
+												// 0 = All controllers, 1 = First, 2 = Second, ect. Got values from XboxCtrlrInput script
+		if (XCI.IsPluggedIn (1) == true) {		// Need to fix. P2 reads P1 controller for some reason.
 			isUsingController = true;
-			isUsingKeyboard = false;
-			 
+			isUsingKeyboard = false;			 
 		} 
 
 		if (XCI.IsPluggedIn (2) == true) {
@@ -145,9 +147,6 @@ public class PlayerControllerv3 : MonoBehaviour {
 
 		} 
 
-		if (XCI.IsPluggedIn (1) == false && XCI.IsPluggedIn (2) == false) {
-			isUsingKeyboard = true;
-		}
 
 	}
 
