@@ -9,13 +9,15 @@ public class GameManager : MonoBehaviour {
 
 	public Text p1KphDisplay;
 	public Text p2KphDisplay;
+	public Text p1Laps;
+	public Text p2Laps;
 
 	public Rigidbody p1Rigidbody;
 	public Rigidbody p2Rigidbody;
 
 	private int lapCount;
 
-	public float maxSpeed = 100f;
+	public static float maxSpeed = 100f;
 
 	// Use this for initialization
 	void Start () {
@@ -65,6 +67,9 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private void LapCounter(){
-		
+
+		p1Laps.text = Laps.currentLap.ToString();
+		p2Laps.text = Laps.currentLap.ToString();
+
 	}
 }

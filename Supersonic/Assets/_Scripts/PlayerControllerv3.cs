@@ -12,25 +12,24 @@ public class PlayerControllerv3 : MonoBehaviour {
 
 	public XboxController controller;
 
-	//public float movementSpeed = 60f;
+	public float movementSpeed = 60f;
 	public float minSpeed = 10f;
-	public float maxSpeed = 100f;
+	public float maxSpeed = GameManager.maxSpeed;
 	public float boostSpeed = 2f;
-	//public float magnetSpeed = 2f;
+	public float turnSpeed = 6f;
 
-	//public Vector3 previousRotationDirection = Vector3.forward;
+	public float maxMotorTorque = 4000.0f;
 
-	public KeyCode forwardsKey = KeyCode.W;
-	public KeyCode backwardsKey = KeyCode.S;
-	public KeyCode moveLeftKey = KeyCode.A;
-	public KeyCode moveRightKey = KeyCode.D;
-	public KeyCode boostKey = KeyCode.Space;
+	// Too much of a pain to use both keyboard AND controller inputs at the same time.
+	//public KeyCode forwardsKey = KeyCode.W;
+	//public KeyCode backwardsKey = KeyCode.S;
+	//public KeyCode moveLeftKey = KeyCode.A;
+	//public KeyCode moveRightKey = KeyCode.D;
+	//public KeyCode boostKey = KeyCode.Space;
 
 	public bool isUsingController = false;
 	public bool isUsingKeyboard = false;
 
-	//public float controllerHorizontalSpeed = 2.0F;
-	//public float sensitivity = 0.001f;
 
 
 	//================================================================ Things From Racing Sim tut =======================================================================================================================
@@ -40,8 +39,8 @@ public class PlayerControllerv3 : MonoBehaviour {
 	public List <WheelCollider> wheelList;
 	public float enginePower = 250.0f;
 
-	public float steer = 0.0f;
-	public float maxSteer = 45.0f;
+	//public float steer = 0.0f;
+	//public float maxSteer = 45.0f;
 	public float playerSpeed;
 
 	public Vector3 centerOfMass = new Vector3(0, -0.5f, 0.3f);
@@ -57,35 +56,25 @@ public class PlayerControllerv3 : MonoBehaviour {
 
 	// Use this for initialization ===== Keep to functions unless needed. I like clean.
 	void Start () {
-
+		
+		Debug.Log ("Max Speed is " + maxSpeed);
 		GetRBComponents ();
-		playerSpeed = GetComponent <Rigidbody> ().velocity.magnitude * 3.6f;
+
 	}
 
 	void Update(){
-
+		
+		playerSpeed = GetComponent <Rigidbody> ().velocity.magnitude * 3.6f;
 		ControllerCheck ();
 		MakeCarGo ();
-		RotatePlayer ();
 
 	}
 		
 
-//===================================================================Rotate Player==============================================================================================
-
-	private void RotatePlayer(){
-				
-			float rotateMouseAxisX = Input.mousePosition.x;
-			float rotateMouseAxisZ = Input.mousePosition.z;
-			Vector3 directionVector = new Vector3 (rotateMouseAxisX, 0f, rotateMouseAxisZ);
-
-
-	}
-
 	public void GetRBComponents(){
 		rigidBody = GetComponent<Rigidbody> ();
 
-		GetComponent<Rigidbody> ().centerOfMass = centerOfMass;
+		rigidBody.centerOfMass = centerOfMass;
 	}
 
 	//========================================================= Things from Racing Sim tut =================================================================================================================
@@ -94,19 +83,31 @@ public class PlayerControllerv3 : MonoBehaviour {
 
 		if (startTimer.GetComponent<StartTimer> ().roundStarted == true)
 		{
-			
-			for (int i = 0; i < wheelList.Count; i++) {
-				wheelList [i].motorTorque = enginePower * Time.deltaTime * 250.0f * XCI.GetAxis(XboxAxis.LeftStickY,controller);
+			float axisX = XCI.GetAxis (XboxAxis.RightStickX, controller);
+			float axisZ = XCI.GetAxis (XboxAxis.LeftStickY, controller);
+			Vector3 movement = new Vector3 (axisX, 0, axisZ);
+			//rigidBody.AddForce (movement * movementSpeed); // not needed as force is being applied with the movement components (movement.x and movement.z)
 
-				//Input.GetAxis ("Vertical")
+						
+			for (int i = 0; i < wheelList.Count; i++) {
+				wheelList [i].motorTorque = enginePower * Time.deltaTime * 350.0f * movement.z;
+
+				//Debug.Log (wheelList[i].motorTorque);
+
+
+				//Ensure the player can't go faster than the max speed. **Not working
+
+				if (rigidBody.velocity.magnitude > maxSpeed) {
+					rigidBody.velocity = rigidBody.velocity.normalized * maxSpeed;
+					wheelList [i].attachedRigidbody.drag += 5f;
+				}
 			}
 				
-			wheelList [0].steerAngle = Input.GetAxis ("Horizontal") * maxSteer;
-			wheelList [1].steerAngle = Input.GetAxis ("Horizontal") * maxSteer;
-
-			if ( playerSpeed >= maxSpeed) {
-				playerSpeed = maxSpeed;
-			}
+			wheelList [0].steerAngle = movement.x * turnSpeed;
+			wheelList [1].steerAngle = movement.x * turnSpeed;
+			wheelList [2].steerAngle = -movement.x * turnSpeed;
+			wheelList [3].steerAngle = -movement.x * turnSpeed;
+		}
 
 			//===================================Cycle through Cameras========================================
 			if (Input.GetKeyDown (KeyCode.Q) || XCI.GetButtonDown(XboxButton.LeftBumper)) {
@@ -121,8 +122,9 @@ public class PlayerControllerv3 : MonoBehaviour {
 
 				cameraList [cameraPointer].SetActive (true);
 			}
-		}
+
 	}
+
 
 	public void HitCheckPoint(int checkpointNumber){
 

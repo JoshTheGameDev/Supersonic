@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.16487247, g: 0.10864631, b: 0.22399879, a: 1}
+  m_IndirectSpecularColor: {r: 0.16487202, g: 0.10872177, b: 0.22396699, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -263,7 +263,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 83014475}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_MotionVectors: 1
@@ -368,24 +368,24 @@ WheelCollider:
   m_Radius: 1
   m_SuspensionSpring:
     spring: 35000
-    damper: 2000
+    damper: 20000
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
-  m_Mass: 20
+  m_Mass: 100
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.8
+    m_ExtremumValue: 5
+    m_AsymptoteSlip: 2
     m_AsymptoteValue: 0.5
-    m_Stiffness: 1
+    m_Stiffness: 2
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.5
+    m_ExtremumSlip: 0.001
+    m_ExtremumValue: 5
+    m_AsymptoteSlip: 3
     m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_Stiffness: 2
   m_Enabled: 1
 --- !u!23 &113931937
 MeshRenderer:
@@ -393,7 +393,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 113931934}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_MotionVectors: 1
@@ -466,24 +466,24 @@ WheelCollider:
   m_Radius: 1
   m_SuspensionSpring:
     spring: 35000
-    damper: 2000
+    damper: 20000
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
-  m_Mass: 20
+  m_Mass: 75
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 1
+    m_Stiffness: 0.5
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
+    m_ExtremumSlip: 0.001
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_Stiffness: 0.5
   m_Enabled: 1
 --- !u!23 &214402494
 MeshRenderer:
@@ -491,7 +491,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 214402491}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_MotionVectors: 1
@@ -1267,14 +1267,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: 2
+  movementSpeed: 60
   minSpeed: 50
-  maxSpeed: 400
+  maxSpeed: 100
   boostSpeed: 5
-  forwardsKey: 119
-  backwardsKey: 115
-  moveLeftKey: 97
-  moveRightKey: 100
-  boostKey: 32
+  turnSpeed: 2
+  maxMotorTorque: 13066.98
   isUsingController: 0
   isUsingKeyboard: 0
   startTimer: {fileID: 2045120434}
@@ -1284,8 +1282,6 @@ MonoBehaviour:
   - {fileID: 83014477}
   - {fileID: 1963903566}
   enginePower: 250
-  steer: 10
-  maxSteer: 25
   playerSpeed: 0
   centerOfMass: {x: 0, y: 0, z: 2}
   currentCheckpoint: 0
@@ -1430,24 +1426,24 @@ WheelCollider:
   m_Radius: 1
   m_SuspensionSpring:
     spring: 35000
-    damper: 2000
+    damper: 20000
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
-  m_Mass: 20
+  m_Mass: 75
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 1
+    m_Stiffness: 0.5
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
+    m_ExtremumSlip: 0.001
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_Stiffness: 0.5
   m_Enabled: 1
 --- !u!23 &594758349
 MeshRenderer:
@@ -1455,7 +1451,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 594758346}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_MotionVectors: 1
@@ -1998,7 +1994,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 814800792}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_MotionVectors: 1
@@ -2259,7 +2255,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 845167304}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_MotionVectors: 1
@@ -2517,7 +2513,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 64
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &1007460839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2529,15 +2525,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5953aa3fe98cda54ca48b456b4df0933, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: 1
+  controller: 0
+  movementSpeed: 60
   minSpeed: 50
-  maxSpeed: 400
+  maxSpeed: 100
   boostSpeed: 5
-  forwardsKey: 119
-  backwardsKey: 115
-  moveLeftKey: 97
-  moveRightKey: 100
-  boostKey: 32
+  turnSpeed: 25
+  maxMotorTorque: 13066.98
   isUsingController: 0
   isUsingKeyboard: 0
   startTimer: {fileID: 2045120434}
@@ -2546,9 +2540,7 @@ MonoBehaviour:
   - {fileID: 214402493}
   - {fileID: 1957509855}
   - {fileID: 113931936}
-  enginePower: 250
-  steer: 50
-  maxSteer: 100
+  enginePower: 350
   playerSpeed: 0
   centerOfMass: {x: 0, y: 0, z: 2}
   currentCheckpoint: 0
@@ -3352,24 +3344,24 @@ WheelCollider:
   m_Radius: 1
   m_SuspensionSpring:
     spring: 35000
-    damper: 2000
+    damper: 20000
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
-  m_Mass: 20
+  m_Mass: 100
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.8
+    m_ExtremumValue: 5
+    m_AsymptoteSlip: 2
     m_AsymptoteValue: 0.5
-    m_Stiffness: 1
+    m_Stiffness: 2
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.2
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.5
+    m_ExtremumSlip: 0.001
+    m_ExtremumValue: 5
+    m_AsymptoteSlip: 3
     m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_Stiffness: 2
   m_Enabled: 1
 --- !u!23 &1957509856
 MeshRenderer:
@@ -3377,7 +3369,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1957509853}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_MotionVectors: 1
@@ -3475,7 +3467,7 @@ MeshRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1963903564}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_MotionVectors: 1
@@ -3551,6 +3543,7 @@ GameObject:
   - component: {fileID: 2045120437}
   - component: {fileID: 2045120438}
   - component: {fileID: 2045120439}
+  - component: {fileID: 2045120440}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -3591,9 +3584,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   p1KphDisplay: {fileID: 2131477555}
   p2KphDisplay: {fileID: 1106236988}
+  p1Laps: {fileID: 842300465}
+  p2Laps: {fileID: 557718020}
   p1Rigidbody: {fileID: 1007460838}
   p2Rigidbody: {fileID: 574012077}
-  maxSpeed: 100
 --- !u!114 &2045120438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3623,6 +3617,24 @@ MonoBehaviour:
   - {fileID: 421515679}
   - {fileID: 798035350}
   - {fileID: 502736146}
+--- !u!114 &2045120440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2045120434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a6c69f0df9097742bad7a9ab5d8dd9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkPointArray:
+  - {fileID: 1471235373}
+  - {fileID: 421515678}
+  - {fileID: 798035349}
+  - {fileID: 502736145}
+  startPos: {x: 0, y: 0, z: 0}
+  Lap: 0
 --- !u!1 &2131477554
 GameObject:
   m_ObjectHideFlags: 0

@@ -23,4 +23,11 @@ public class Checkpoint : MonoBehaviour {
 	void Update () {
 		
 	}
+
+	void LapCompleted(){
+
+
+
+	}
+
 }
